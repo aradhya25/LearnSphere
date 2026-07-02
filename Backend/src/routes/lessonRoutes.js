@@ -3,7 +3,10 @@ const router = require("express").Router();
 const authMiddleware = require("../middleware/authMiddleware");
 const roleMiddleware = require("../middleware/roleMiddleware");
 const upload = require("../middleware/uploadMiddleware");
-const { lessonValidation } = require("../validators/lessonValidator");
+const {
+  createLessonValidation,
+  updateLessonValidation,
+} = require("../validators/lessonValidator");
 const { youtubeValidation } = require("../validators/videoValidator");
 const validate = require("../middleware/validationMiddleware");
 const { uuidValidation } = require("../validators/uuidValidator");
@@ -22,7 +25,7 @@ router.post(
   "/",
   authMiddleware,
   roleMiddleware("teacher"),
-  lessonValidation,
+  createLessonValidation,
   validate,
   createLesson,
 );
@@ -64,7 +67,7 @@ router.put(
   authMiddleware,
   roleMiddleware("teacher"),
   uuidValidation(),
-  lessonValidation,
+  updateLessonValidation,
   validate,
   updateLesson,
 );

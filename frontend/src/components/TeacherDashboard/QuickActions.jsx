@@ -18,13 +18,13 @@ export default function QuickActions() {
       path: '/teacher/courses',
       gradient: 'from-indigo-650 to-violet-700 hover:from-indigo-700 hover:to-violet-800',
     },
-    {
-      title: 'Manage Lessons',
-      desc: 'Add and edit course lessons',
-      icon: <FaBookOpen className="w-6 h-6 text-white" />,
-      path: '/teacher/lessons',
-      gradient: 'from-blue-600 to-indigo-700 hover:from-blue-750 hover:to-indigo-800',
-    },
+    // {
+    //   title: 'Manage Lessons',
+    //   desc: 'Add and edit course lessons',
+    //   icon: <FaBookOpen className="w-6 h-6 text-white" />,
+    //   path: '/teacher/course/${courseId}/lessons',
+    //   gradient: 'from-blue-600 to-indigo-700 hover:from-blue-750 hover:to-indigo-800',
+    // },
     {
       title: 'Manage Quizzes',
       desc: 'Edit and manage syllabus',

@@ -41,10 +41,25 @@ const getCourseById = async (id) => {
 const getMyCourses = async (teacherId) => {
   const result = await pool.query(
     `
-    SELECT *
-    FROM courses
-    WHERE created_by = $1
-    ORDER BY created_at DESC
+    SELECT
+      c.*,
+
+      COUNT(DISTINCT l.id) AS lessons_count,
+
+      0 AS students_count,
+
+      0 AS quizzes_count
+
+    FROM courses c
+
+    LEFT JOIN lessons l
+      ON l.course_id = c.id
+
+    WHERE c.created_by = $1
+
+    GROUP BY c.id
+
+    ORDER BY c.created_at DESC
     `,
     [teacherId]
   );
@@ -58,16 +73,52 @@ const updateCourse = async (
   language,
   thumbnail
 ) => {
-  const result = await pool.query(
-    `UPDATE courses
-     SET title=$1,
-         description=$2,
-         language=$3,
-         thumbnail=$4
-     WHERE id=$5
-     RETURNING *`,
-    [title, description, language, thumbnail, id]
-  );
+
+  let query;
+  let values;
+
+  if (thumbnail) {
+
+    query = `
+      UPDATE courses
+      SET
+        title=$1,
+        description=$2,
+        language=$3,
+        thumbnail=$4
+      WHERE id=$5
+      RETURNING *;
+    `;
+
+    values = [
+      title,
+      description,
+      language,
+      thumbnail,
+      id,
+    ];
+
+  } else {
+
+    query = `
+      UPDATE courses
+      SET
+        title=$1,
+        description=$2,
+        language=$3
+      WHERE id=$4
+      RETURNING *;
+    `;
+
+    values = [
+      title,
+      description,
+      language,
+      id,
+    ];
+  }
+
+  const result = await pool.query(query, values);
 
   return result.rows[0];
 };

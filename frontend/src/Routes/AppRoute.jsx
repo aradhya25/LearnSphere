@@ -20,6 +20,10 @@ import TeacherDashboard from "../pages/Teacher/Dashboard/Dashboard";
 import Dashboard from "../pages/Teacher/Dashboard/Dashboard";
 import MyCoursesPage from "../pages/Teacher/Courses/MyCoursesPage";
 import CreateCoursePage from "../pages/Teacher/Courses/CreateCoursePage";
+import ManageLessonsPage from "../pages/Teacher/Lessons/ManageLessonsPage";
+import CreateLessonPage from "../pages/Teacher/Lessons/CreateLessonPage";
+import EditLessonPage from "../pages/Teacher/Lessons/EditLessonPage";
+import EditCoursePage from "../pages/Teacher/Courses/EditCoursePage";
 // import Lesson from "../pages/Student/Lesson/Lesson";
 // import Quiz from "../pages/Student/Quiz/Quiz";
 // import Progress from "../pages/Student/Progress/Progress";
@@ -141,6 +145,38 @@ const AppRoutes = () => {
           element={
             <ProtectedRoute allowedRoles={["teacher"]}>
               <CreateCoursePage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/teacher/course/:courseId/lessons"
+          element={
+            <ProtectedRoute allowedRoles={["teacher"]}>
+              <ManageLessonsPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/teacher/course/:courseId/lesson/create"
+          element={
+            <ProtectedRoute allowedRoles={["teacher"]}>
+              <CreateLessonPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/teacher/lesson/:lessonId/edit"
+          element={
+            <ProtectedRoute allowedRoles={["teacher"]}>
+              <EditLessonPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/teacher/course/edit/:id"
+          element={
+            <ProtectedRoute allowedRoles={["teacher"]}>
+              <EditCoursePage />
             </ProtectedRoute>
           }
         />

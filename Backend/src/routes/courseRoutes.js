@@ -40,6 +40,7 @@ router.put(
   "/:id",
   authMiddleware,
   roleMiddleware("teacher"),
+  uploadImage.single("thumbnail"),
   uuidValidation(),
   updateCourseValidation,
   validate,

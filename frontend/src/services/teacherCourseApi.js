@@ -15,10 +15,13 @@ export const createCourse = (formData) => {
   });
 };
 
-export const updateCourse = (id, data) => {
-  return api.put(`/courses/${id}`, data);
+export const updateCourse = (id, formData) => {
+  return api.put(`/courses/${id}`, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 };
-
 export const deleteCourse = (id) => {
   return api.delete(`/courses/${id}`);
 };

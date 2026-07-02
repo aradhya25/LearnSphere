@@ -14,9 +14,7 @@ exports.createCourse = async (req, res) => {
     const { title, description, language } = req.body;
 
     // Get uploaded image path
-    const thumbnail = req.file
-      ? `/uploads/images/${req.file.filename}`
-      : null;
+    const thumbnail = req.file ? `/uploads/images/${req.file.filename}` : null;
 
     const course = await createCourse(
       uuidv4(),
@@ -24,7 +22,7 @@ exports.createCourse = async (req, res) => {
       description,
       language,
       thumbnail,
-      req.user.id
+      req.user.id,
     );
 
     res.status(201).json({
@@ -81,27 +79,28 @@ exports.getMyCourses = async (req, res) => {
       success: true,
       courses,
     });
-
   } catch (error) {
-
     res.status(500).json({
       success: false,
       message: error.message,
     });
-
   }
 };
 
 exports.updateCourse = async (req, res) => {
   try {
-    const { title, description, language, thumbnail } = req.body;
+    const { title, description, language } = req.body;
+
+    const thumbnail = req.file
+      ? `/uploads/images/${req.file.filename}`
+      : undefined;
 
     const course = await updateCourse(
       req.params.id,
       title,
       description,
       language,
-      thumbnail
+      thumbnail,
     );
 
     res.status(200).json({

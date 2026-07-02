@@ -10,7 +10,7 @@ export default function TeacherLayout({ children }) {
   const menuItems = [
     { name: 'Dashboard', icon: <FaHome className="w-4 h-4" />, path: '/teacher/dashboard' },
     { name: 'My Courses', icon: <FaBook className="w-4 h-4" />, path: '/teacher/courses' },
-    { name: 'Create Course', icon: <FaPlusCircle className="w-4 h-4" />, path: '/teacher/create-course' },
+    { name: 'Create Course', icon: <FaPlusCircle className="w-4 h-4" />, path: '/teacher/courses/create' },
     { name: 'Quizzes', icon: <FaRegQuestionCircle className="w-4 h-4" />, path: '/teacher/quizzes' },
     { name: 'Students', icon: <FaUserGraduate className="w-4 h-4" />, path: '/teacher/students' },
     { name: 'Profile', icon: <FaUser className="w-4 h-4" />, path: '/teacher/profile' },
