@@ -3,6 +3,7 @@ const { v4: uuidv4 } = require("uuid");
 const {
   createAttempt,
   getAttemptsByUser,
+   getAllAttempts,
 } = require("../models/quizAttemptModel");
 const {
   getQuestions,
@@ -80,5 +81,20 @@ exports.getMyAttempts = async (req, res) => {
       message: error.message,
     });
 
+  }
+};
+exports.getAllAttempts = async (req, res) => {
+  try {
+    const attempts = await getAllAttempts(req.user.id);
+
+    res.status(200).json({
+      success: true,
+      attempts,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
   }
 };

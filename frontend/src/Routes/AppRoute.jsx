@@ -28,6 +28,8 @@ import ManageQuizPage from "../pages/Teacher/Quizzes/ManageQuizPage";
 import CreateQuizPage from "../pages/Teacher/Quizzes/CreateQuizPage";
 import ManageQuestionsPage from "../pages/Teacher/Quizzes/ManageQuestionsPage";
 import CreateQuestionPage from "../pages/Teacher/Quizzes/CreateQuestionPage";
+import EditQuestionPage from "../pages/Teacher/Quizzes/EditQuestionPage";
+import TeacherAttemptsPage from "../pages/Teacher/Quizzes/TeacherAttemptsPage";
 // import Lesson from "../pages/Student/Lesson/Lesson";
 // import Quiz from "../pages/Student/Quiz/Quiz";
 // import Progress from "../pages/Student/Progress/Progress";
@@ -213,6 +215,22 @@ const AppRoutes = () => {
           element={
             <ProtectedRoute allowedRoles={["teacher"]}>
               <CreateQuestionPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/teacher/question/edit/:questionId"
+          element={
+            <ProtectedRoute allowedRoles={["teacher"]}>
+              <EditQuestionPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/teacher/attempts"
+          element={
+            <ProtectedRoute allowedRoles={["teacher"]}>
+              <TeacherAttemptsPage />
             </ProtectedRoute>
           }
         />

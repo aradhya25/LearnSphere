@@ -44,22 +44,28 @@ const getMyCourses = async (teacherId) => {
     SELECT
       c.*,
 
-      COUNT(DISTINCT l.id) AS lessons_count,
+      COUNT(DISTINCT l.id)::int AS lessons_count,
 
-      0 AS students_count,
+      COUNT(DISTINCT q.id)::int AS quizzes_count,
 
-      0 AS quizzes_count
+      COUNT(DISTINCT e.user_id)::int AS students_count
 
     FROM courses c
 
     LEFT JOIN lessons l
       ON l.course_id = c.id
 
+    LEFT JOIN quizzes q
+      ON q.lesson_id = l.id
+
+    LEFT JOIN enrollments e
+      ON e.course_id = c.id
+
     WHERE c.created_by = $1
 
     GROUP BY c.id
 
-    ORDER BY c.created_at DESC
+    ORDER BY c.created_at DESC;
     `,
     [teacherId]
   );

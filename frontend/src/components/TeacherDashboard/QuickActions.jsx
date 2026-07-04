@@ -25,13 +25,13 @@ export default function QuickActions() {
     //   path: '/teacher/course/${courseId}/lessons',
     //   gradient: 'from-blue-600 to-indigo-700 hover:from-blue-750 hover:to-indigo-800',
     // },
-    {
-      title: 'Manage Quizzes',
-      desc: 'Edit and manage syllabus',
-      icon: <FaBook className="w-6 h-6 text-white" />,
-      path: '/teacher/quizzes',
-      gradient: 'from-indigo-650 to-violet-700 hover:from-indigo-700 hover:to-violet-800',
-    },
+    // {
+    //   title: 'Manage Quizzes',
+    //   desc: 'Edit and manage syllabus',
+    //   icon: <FaBook className="w-6 h-6 text-white" />,
+    //   path: '/teacher/quizzes',
+    //   gradient: 'from-indigo-650 to-violet-700 hover:from-indigo-700 hover:to-violet-800',
+    // },
     {
       title: 'AI Quiz Generator',
       desc: 'Instantly build quizzes using AI',

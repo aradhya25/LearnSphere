@@ -27,10 +27,16 @@ const createQuiz = async (
 };
 
 const getAllQuizzes = async () => {
-  const result = await pool.query(
-    `SELECT * FROM quizzes
-     ORDER BY created_at DESC`,
-  );
+  const result = await pool.query(`
+    SELECT
+      q.*,
+      COUNT(ques.id)::int AS questions_count
+    FROM quizzes q
+    LEFT JOIN questions ques
+      ON q.id = ques.quiz_id
+    GROUP BY q.id
+    ORDER BY q.created_at DESC;
+  `);
 
   return result.rows;
 };
@@ -46,13 +52,19 @@ const getQuizById = async (id) => {
 };
 const getQuizByLesson = async (lessonId) => {
   const result = await pool.query(
-    `SELECT *
-     FROM quizzes
-     WHERE lesson_id = $1`,
+    `
+    SELECT
+      q.*,
+      COUNT(ques.id)::int AS questions_count
+    FROM quizzes q
+    LEFT JOIN questions ques
+      ON q.id = ques.quiz_id
+    WHERE q.lesson_id = $1
+    GROUP BY q.id
+    ORDER BY q.created_at DESC;
+    `,
     [lessonId]
   );
-
-  
 
   return result.rows;
 };

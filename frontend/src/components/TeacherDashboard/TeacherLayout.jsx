@@ -1,24 +1,69 @@
-import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { 
-  FaBrain, FaHome, FaBook, FaPlusCircle, FaRegQuestionCircle, 
-  FaUserGraduate, FaUser, FaCog, FaSignOutAlt, FaBell, FaBars, FaTimes 
-} from 'react-icons/fa';
+import React, { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import {
+  FaBrain,
+  FaHome,
+  FaBook,
+  FaPlusCircle,
+  FaRegQuestionCircle,
+  FaUserGraduate,
+  FaUser,
+  FaCog,
+  FaSignOutAlt,
+  FaBell,
+  FaBars,
+  FaTimes,
+} from "react-icons/fa";
 export default function TeacherLayout({ children }) {
+  const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
   const menuItems = [
-    { name: 'Dashboard', icon: <FaHome className="w-4 h-4" />, path: '/teacher/dashboard' },
-    { name: 'My Courses', icon: <FaBook className="w-4 h-4" />, path: '/teacher/courses' },
-    { name: 'Create Course', icon: <FaPlusCircle className="w-4 h-4" />, path: '/teacher/courses/create' },
-    { name: 'Quizzes', icon: <FaRegQuestionCircle className="w-4 h-4" />, path: '/teacher/quizzes' },
-    { name: 'Students', icon: <FaUserGraduate className="w-4 h-4" />, path: '/teacher/students' },
-    { name: 'Profile', icon: <FaUser className="w-4 h-4" />, path: '/teacher/profile' },
-    { name: 'Settings', icon: <FaCog className="w-4 h-4" />, path: '#settings' },
+    {
+      name: "Dashboard",
+      icon: <FaHome className="w-4 h-4" />,
+      path: "/teacher/dashboard",
+    },
+    {
+      name: "My Courses",
+      icon: <FaBook className="w-4 h-4" />,
+      path: "/teacher/courses",
+    },
+    {
+      name: "Create Course",
+      icon: <FaPlusCircle className="w-4 h-4" />,
+      path: "/teacher/courses/create",
+    },
+    {
+      name: "Quiz Attempts",
+      icon: <FaRegQuestionCircle className="w-4 h-4" />,
+      path: "/teacher/attempts",
+    },
+    {
+      name: "Students",
+      icon: <FaUserGraduate className="w-4 h-4" />,
+      path: "/teacher/students",
+    },
+    {
+      name: "Profile",
+      icon: <FaUser className="w-4 h-4" />,
+      path: "/teacher/profile",
+    },
+    {
+      name: "Settings",
+      icon: <FaCog className="w-4 h-4" />,
+      path: "#settings",
+    },
   ];
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+
+    navigate("/login");
+  };
   return (
     <div className="min-h-screen bg-[#F8FAFC] flex flex-col font-sans">
-      
       {/* MOBILE HEADER (TOP) */}
       <header className="lg:hidden flex items-center justify-between px-6 py-4 bg-white border-b border-slate-100 sticky top-0 z-40 shadow-sm">
         <Link to="/" className="flex items-center space-x-2">
@@ -26,10 +71,13 @@ export default function TeacherLayout({ children }) {
             <FaBrain className="w-4 h-4" />
           </div>
           <span className="text-lg font-bold tracking-tight text-darkGray">
-            STEM<span className="text-primary font-bold">Verse</span> <span className="text-[10px] uppercase font-bold text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded">Teacher</span>
+            STEM<span className="text-primary font-bold">Verse</span>{" "}
+            <span className="text-[10px] uppercase font-bold text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded">
+              Teacher
+            </span>
           </span>
         </Link>
-        
+
         <button
           onClick={() => setSidebarOpen(true)}
           className="p-2 rounded-lg text-darkGray hover:text-primary hover:bg-slate-50 transition-colors"
@@ -39,7 +87,6 @@ export default function TeacherLayout({ children }) {
         </button>
       </header>
       <div className="flex flex-1 relative">
-        
         {/* SIDEBAR CONTAINER (DESKTOP) */}
         <aside className="hidden lg:flex flex-col w-64 bg-white border-r border-slate-150 p-6 sticky top-0 h-screen justify-between z-30">
           <div className="space-y-8">
@@ -64,9 +111,9 @@ export default function TeacherLayout({ children }) {
                     key={idx}
                     to={item.path}
                     className={`flex items-center space-x-3 px-4 py-3 rounded-2xl text-xs font-bold transition-all ${
-                      isActive 
-                        ? 'bg-primary/10 text-primary shadow-sm' 
-                        : 'text-darkGray-light hover:bg-slate-50 hover:text-darkGray'
+                      isActive
+                        ? "bg-primary/10 text-primary shadow-sm"
+                        : "text-darkGray-light hover:bg-slate-50 hover:text-darkGray"
                     }`}
                   >
                     {item.icon}
@@ -78,7 +125,10 @@ export default function TeacherLayout({ children }) {
           </div>
           {/* Footer Actions */}
           <div className="border-t border-slate-100 pt-4 space-y-2">
-            <button className="flex items-center space-x-3 px-4 py-3 rounded-2xl text-xs font-bold text-red-500 hover:bg-red-50 transition-colors w-full">
+            <button
+              onClick={handleLogout}
+              className="flex items-center space-x-3 px-4 py-3 rounded-2xl text-xs font-bold text-red-500 hover:bg-red-50 transition-colors w-full cursor-pointer"
+            >
               <FaSignOutAlt className="w-4 h-4" />
               <span>Sign Out</span>
             </button>
@@ -95,9 +145,11 @@ export default function TeacherLayout({ children }) {
                     <div className="bg-primary p-1.5 rounded-lg text-white">
                       <FaBrain className="w-4 h-4" />
                     </div>
-                    <span className="text-base font-bold text-darkGray">STEMVerse</span>
+                    <span className="text-base font-bold text-darkGray">
+                      STEMVerse
+                    </span>
                   </div>
-                  <button 
+                  <button
                     onClick={() => setSidebarOpen(false)}
                     className="p-1 rounded-lg text-darkGray hover:bg-slate-100 transition-colors"
                   >
@@ -114,9 +166,9 @@ export default function TeacherLayout({ children }) {
                         to={item.path}
                         onClick={() => setSidebarOpen(false)}
                         className={`flex items-center space-x-3 px-4 py-3 rounded-2xl text-xs font-bold transition-all ${
-                          isActive 
-                            ? 'bg-primary/10 text-primary' 
-                            : 'text-darkGray-light hover:bg-slate-50 hover:text-darkGray'
+                          isActive
+                            ? "bg-primary/10 text-primary"
+                            : "text-darkGray-light hover:bg-slate-50 hover:text-darkGray"
                         }`}
                       >
                         {item.icon}
@@ -128,7 +180,10 @@ export default function TeacherLayout({ children }) {
               </div>
               {/* Drawer Footer */}
               <div className="border-t border-slate-100 pt-4">
-                <button className="flex items-center space-x-3 px-4 py-3 rounded-2xl text-xs font-bold text-red-500 hover:bg-red-50 transition-colors w-full">
+                <button
+                  onClick={handleLogout}
+                  className="flex items-center space-x-3 px-4 py-3 rounded-2xl text-xs font-bold text-red-500 hover:bg-red-50 transition-colors w-full "
+                >
                   <FaSignOutAlt className="w-4 h-4" />
                   <span>Sign Out</span>
                 </button>
@@ -145,7 +200,7 @@ export default function TeacherLayout({ children }) {
               <span>/</span>
               <span className="text-primary">Teacher Dashboard</span>
             </div>
-            
+
             {/* Action Indicators */}
             <div className="flex items-center space-x-4">
               <button className="p-2 rounded-xl text-slate-400 hover:text-primary hover:bg-slate-50 transition-all relative">
