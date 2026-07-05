@@ -8,6 +8,7 @@ export default function CourseCard({ course, onViewCourse }) {
     thumbnail,
     instructor_name,
     created_at,
+    id,
   } = course;
   // Format Date Helper
   const formatDate = (dateStr) => {

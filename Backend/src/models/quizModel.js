@@ -68,6 +68,41 @@ const getQuizByLesson = async (lessonId) => {
 
   return result.rows;
 };
+const getTeacherQuizzes = async (teacherId) => {
+  const result = await pool.query(
+    `
+    SELECT
+      q.id,
+      q.title,
+      l.title AS lesson_title,
+      c.title AS course_title,
+      COUNT(ques.id)::int AS questions_count
+
+    FROM quizzes q
+
+    JOIN lessons l
+      ON q.lesson_id = l.id
+
+    JOIN courses c
+      ON l.course_id = c.id
+
+    LEFT JOIN questions ques
+      ON q.id = ques.quiz_id
+
+    WHERE c.created_by = $1
+
+    GROUP BY
+      q.id,
+      l.title,
+      c.title
+
+    ORDER BY q.created_at DESC;
+    `,
+    [teacherId]
+  );
+
+  return result.rows;
+};
 const updateQuiz = async (id, title, description) => {
   const result = await pool.query(
     `UPDATE quizzes
@@ -214,6 +249,7 @@ const deleteQuestion = async (id) => {
 module.exports = {
   createQuiz,
   getAllQuizzes,
+  getTeacherQuizzes,
   getQuizById,
   getQuizByLesson,
   getQuizWithTeacher,

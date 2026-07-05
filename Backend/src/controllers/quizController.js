@@ -12,6 +12,7 @@ const {
   getQuestionById,
   updateQuestion,
   deleteQuestion,
+  getTeacherQuizzes,
 } = require("../models/quizModel");
 
 exports.createQuiz = async (req, res) => {
@@ -63,6 +64,21 @@ exports.getQuizById = async (req, res) => {
     res.json({
       success: true,
       quiz,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+exports.getTeacherQuizzes = async (req, res) => {
+  try {
+    const quizzes = await getTeacherQuizzes(req.user.id);
+
+    res.status(200).json({
+      success: true,
+      quizzes,
     });
   } catch (error) {
     res.status(500).json({

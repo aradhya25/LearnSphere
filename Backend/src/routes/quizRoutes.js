@@ -15,7 +15,7 @@ const {
   getQuestionById,
   updateQuestion,
   deleteQuestion,
-
+  getTeacherQuizzes,
 } = require("../controllers/quizController");
 const {
   quizValidation,
@@ -33,6 +33,12 @@ router.post(
 );
 
 router.get("/", getAllQuizzes);
+router.get(
+  "/my-quizzes",
+  authMiddleware,
+  roleMiddleware("teacher"),
+  getTeacherQuizzes,
+);
 router.get(
   "/lesson/:lessonId",
   uuidValidation("lessonId"),
@@ -95,7 +101,5 @@ router.put(
   validate,
   updateQuestion,
 );
-
-
 
 module.exports = router;

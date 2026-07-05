@@ -4,7 +4,9 @@ import api from "./api";
 export const generateQuiz = (data) => {
   return api.post("/ai/generate-quiz", data);
 };
-
+export const getTeacherQuizzes = () => {
+  return api.get("/quizzes/my-quizzes");
+};
 // Get all quizzes (for dropdown)
 export const getAllQuizzes = () => {
   return api.get("/quizzes");
