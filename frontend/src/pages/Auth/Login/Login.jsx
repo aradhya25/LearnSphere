@@ -106,7 +106,7 @@ export default function LoginPage() {
             className="inline-flex items-center space-x-2 text-sm font-semibold text-blue-100 hover:text-white transition-colors"
           >
             <FaArrowLeft className="w-3.5 h-3.5" />
-            <span>Back to STEMVerse</span>
+            <span>Back to LearnSphere</span>
           </Link>
         </div>
         {/* Dynamic Welcome Message */}
@@ -135,7 +135,7 @@ export default function LoginPage() {
             {/* Fallback interactive panel */}
             <div className="hidden absolute inset-0 flex-col items-center justify-center p-6 bg-slate-900/60 backdrop-blur-md rounded-xl text-center space-y-4">
               <span className="w-2.5 h-2.5 rounded-full bg-secondary animate-pulse" />
-              <p className="text-sm font-bold text-slate-100">STEMVerse Interactive Console</p>
+              <p className="text-sm font-bold text-slate-100">LearnSphere Interactive Console</p>
               <div className="bg-white/10 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-left w-5/6 text-blue-200">
                 <code>ai_module.load("physics_quantum")</code>
                 <div className="w-full bg-white/20 h-1.5 rounded-full mt-2 overflow-hidden">
@@ -147,7 +147,7 @@ export default function LoginPage() {
         </div>
         {/* Bottom copyright notice */}
         <div className="relative z-10 text-xs text-blue-200/80">
-          <p>© 2026 STEMVerse. All Rights Reserved.</p>
+          <p>© 2026 LearnSphere. All Rights Reserved.</p>
         </div>
       </div>
       {/* RIGHT SIDE: Interactive Login Card Form */}
@@ -170,14 +170,14 @@ export default function LoginPage() {
                 <FaBrain className="w-5 h-5" />
               </div>
               <span className="text-xl font-bold tracking-tight text-darkGray">
-                STEM<span className="text-[#2563EB]">Verse</span>
+                Learn<span className="text-[#2563EB]">Sphere</span>
               </span>
             </Link>
             <h2 className="text-3xl font-extrabold text-darkGray tracking-tight font-sans">
               Sign In
             </h2>
             <p className="text-sm text-darkGray-light font-medium">
-              Login to access your STEMVerse account.
+              Login to access your LearnSphere account.
             </p>
           </div>
           {/* Validation Banner (General Error) */}
