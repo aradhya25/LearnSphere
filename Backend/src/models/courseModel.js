@@ -20,18 +20,36 @@ const createCourse = async (
 };
 
 const getAllCourses = async () => {
-  const result = await pool.query(
-    `SELECT * FROM courses
-     ORDER BY created_at DESC`
-  );
+  const result = await pool.query(`
+    SELECT
+      c.*,
+      u.name AS instructor_name
+
+    FROM courses c
+
+    LEFT JOIN users u
+      ON c.created_by = u.id
+
+    ORDER BY c.created_at DESC
+  `);
 
   return result.rows;
 };
 
 const getCourseById = async (id) => {
   const result = await pool.query(
-    `SELECT * FROM courses
-     WHERE id=$1`,
+    `
+    SELECT
+      c.*,
+      u.name AS instructor_name
+
+    FROM courses c
+
+    LEFT JOIN users u
+      ON c.created_by = u.id
+
+    WHERE c.id = $1
+    `,
     [id]
   );
 

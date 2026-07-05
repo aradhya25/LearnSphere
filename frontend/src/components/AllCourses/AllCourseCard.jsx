@@ -13,7 +13,7 @@ export default function AllCourseCard({ course, isEnrolled, onEnroll }) {
     description,
     language,
     thumbnail,
-    created_by,
+    instructor_name,
     created_at,
   } = course;
   const [isEnrolling, setIsEnrolling] = useState(false);
@@ -71,7 +71,7 @@ export default function AllCourseCard({ course, isEnrolled, onEnroll }) {
           <div className="flex items-center space-x-2 text-[11px] text-slate-400 font-semibold">
             <FaUser className="w-3 h-3 text-slate-350" />
             <span className="truncate">
-              Instructor: {created_by || "Staff"}
+              Instructor: {instructor_name || "Staff"}
             </span>
           </div>
           {/* Course Title */}
@@ -102,7 +102,7 @@ export default function AllCourseCard({ course, isEnrolled, onEnroll }) {
             <button
               onClick={handleEnrollClick}
               disabled={isEnrolling}
-               className="inline-flex items-center justify-center space-x-2 py-3 px-6 bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-700 hover:from-blue-700 hover:via-blue-800 hover:to-indigo-800 disabled:opacity-50 text-white font-bold rounded-xl text-sm shadow-lg shadow-blue-600/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-700/40 active:translate-y-0 disabled:pointer-events-none"
+              className="inline-flex items-center justify-center space-x-2 py-3 px-6 bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-700 hover:from-blue-700 hover:via-blue-800 hover:to-indigo-800 disabled:opacity-50 text-white font-bold rounded-xl text-sm shadow-lg shadow-blue-600/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-700/40 active:translate-y-0 disabled:pointer-events-none"
             >
               {isEnrolling ? (
                 <>

@@ -14,13 +14,23 @@ const enrollCourse = async (id, user_id, course_id) => {
 
 const getMyCourses = async (userId) => {
   const result = await pool.query(
-    `SELECT
-        c.*
-     FROM enrollments e
-     JOIN courses c
-       ON e.course_id = c.id
-     WHERE e.user_id = $1
-     ORDER BY e.enrolled_at DESC`,
+    `
+    SELECT
+      c.*,
+      u.name AS instructor_name
+
+    FROM enrollments e
+
+    JOIN courses c
+      ON e.course_id = c.id
+
+    LEFT JOIN users u
+      ON c.created_by = u.id
+
+    WHERE e.user_id = $1
+
+    ORDER BY e.enrolled_at DESC
+    `,
     [userId]
   );
 

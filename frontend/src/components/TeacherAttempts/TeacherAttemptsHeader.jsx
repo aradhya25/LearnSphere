@@ -6,7 +6,7 @@ export default function TeacherAttemptsHeader() {
       <div className="space-y-1">
         {/* Breadcrumb Links */}
         <div className="flex items-center space-x-2 text-[10px] text-slate-400 font-bold uppercase tracking-wider select-none">
-          <Link to="/teacher/dashboard" className="hover:text-primary transition-colors">STEMVerse LMS</Link>
+          <Link to="/teacher/dashboard" className="hover:text-primary transition-colors">LearnSphere LMS</Link>
           <span>/</span>
           <Link to="/teacher/dashboard" className="hover:text-primary transition-colors">Teacher Dashboard</Link>
           <span>/</span>

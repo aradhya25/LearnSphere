@@ -112,7 +112,7 @@ export default function TeacherStudentDetailsModal({ isOpen = false, onClose, st
         <div className="pt-2 border-t border-slate-50 flex justify-end">
           <button
             onClick={onClose}
-            className="py-2.5 px-6 bg-primary hover:bg-primary-dark text-white text-xs font-bold rounded-xl shadow-sm transition-all active:scale-95"
+            className="py-2.5 px-6 bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-700 hover:from-blue-700 hover:via-blue-800 hover:to-indigo-800 text-white text-sm font-bold rounded-xl shadow-lg shadow-blue-600/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-700/40 active:translate-y-0 active:scale-95"
           >
             Close Profile
           </button>

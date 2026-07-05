@@ -2,12 +2,11 @@ import React from "react";
 import { FaGraduationCap, FaCalendarAlt, FaUser } from "react-icons/fa";
 export default function CourseCard({ course, onViewCourse }) {
   const {
-    id,
     title,
     description,
     language,
     thumbnail,
-    created_by,
+    instructor_name,
     created_at,
   } = course;
   // Format Date Helper
@@ -59,7 +58,7 @@ export default function CourseCard({ course, onViewCourse }) {
           <div className="flex items-center space-x-2 text-[11px] text-slate-400 font-semibold">
             <FaUser className="w-3 h-3 text-slate-350" />
             <span className="truncate">
-              Created by: {created_by || "Instructor"}
+              Created by: {instructor_name || "Staff"}
             </span>
           </div>
           {/* Title */}

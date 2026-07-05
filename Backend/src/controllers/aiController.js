@@ -2,6 +2,30 @@ const model = require("../services/aiService");
 const { v4: uuidv4 } = require("uuid");
 
 const { addQuestion, getQuizWithTeacher } = require("../models/quizModel");
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+const generateWithRetry = async (prompt) => {
+  let lastError;
+
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      const result = await model.generateContent(prompt);
+      return result;
+    } catch (err) {
+      lastError = err;
+
+      if (err.status === 503 && attempt < 3) {
+        console.log(`Gemini busy. Retrying... (${attempt}/3)`);
+        await sleep(2000);
+        continue;
+      }
+
+      throw err;
+    }
+  }
+
+  throw lastError;
+};
 
 exports.generateQuiz = async (req, res) => {
   try {
@@ -70,7 +94,7 @@ Return in this exact format:
 ]
 `;
 
-    const result = await model.generateContent(prompt);
+    const result = await generateWithRetry(prompt);
 
     const response = await result.response;
 
@@ -131,11 +155,24 @@ Return in this exact format:
       questions,
     });
   } catch (error) {
-    console.error(error);
+    if (error.status === 503) {
+      return res.status(503).json({
+        success: false,
+        message:
+          "AI service is temporarily busy. Please try again in a few seconds.",
+      });
+    }
 
-    res.status(500).json({
+    if (error instanceof SyntaxError) {
+      return res.status(500).json({
+        success: false,
+        message: "AI returned an invalid response. Please try again.",
+      });
+    }
+
+    return res.status(500).json({
       success: false,
-      message: error.message,
+      message: error.message || "Something went wrong.",
     });
   }
 };
@@ -207,7 +244,7 @@ Lesson:
 ${lessonContent}
 `;
 
-    const result = await model.generateContent(prompt);
+    const result = await generateWithRetry(prompt);
 
     const response = await result.response;
 
@@ -219,16 +256,29 @@ ${lessonContent}
       });
     }
 
-  return  res.json({
+    return res.json({
       success: true,
       summary,
     });
   } catch (error) {
-    console.error(error);
+    if (error.status === 503) {
+      return res.status(503).json({
+        success: false,
+        message:
+          "AI service is temporarily busy. Please try again in a few seconds.",
+      });
+    }
 
-    res.status(500).json({
+    if (error instanceof SyntaxError) {
+      return res.status(500).json({
+        success: false,
+        message: "AI returned an invalid response. Please try again.",
+      });
+    }
+
+    return res.status(500).json({
       success: false,
-      message: error.message,
+      message: error.message || "Something went wrong.",
     });
   }
 };
